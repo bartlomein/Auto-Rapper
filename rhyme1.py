@@ -45,8 +45,6 @@ def select_rhyme_word(word1):
 
 
 
-#print(dic.inserted('Rohit'))
-
 sentence = input("Start me off with a line: ")
 split_sentence = sentence.split()
 last_word = len(split_sentence[-1])
