@@ -33,7 +33,6 @@ def select_rhyme_word(word1):
     if len(wordlist) == 0:
         no_rhymes()
     else:
-        print(len(wordlist))
         random_word = wordlist[randint(0, len(wordlist)-1)]
         return random_word
 
