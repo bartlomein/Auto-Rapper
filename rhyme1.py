@@ -24,6 +24,10 @@ def generate_model(cfdist, word, num=15):
         word = cfdist[word].max()
 
 
+def no_rhymes():
+    print("Sorry, last word has no rhymes in my dictionary")
+
+
 def replace_last_word(first, rhyme_word):
     old = first.rsplit(' ', 1)[0]
     new = old + " " + rhyme_word
@@ -32,8 +36,12 @@ def replace_last_word(first, rhyme_word):
 def select_rhyme_word(word1):
     word_that_rhyme = rhyme(word1, 2)
     wordlist = list(word_that_rhyme)
-    random_word = wordlist[randint(0, len(wordlist)-1)]
-    return random_word
+
+    if len(wordlist) == 0:
+        no_rhymes()
+    else:
+        random_word = wordlist[randint(0, len(wordlist)-1)]
+        return random_word
 
 
 
