@@ -3,7 +3,7 @@ import pyphen
 from random import randint
 import markovify
 
-with open("fullrap6.txt") as f:
+with open("rap.txt") as f:
     text = f.read()
 dic = pyphen.Pyphen(lang='en')
 
