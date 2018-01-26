@@ -2,6 +2,9 @@ import pyphen
 from random import randint
 import markovify
 import pronouncing
+from gtts import gTTS
+
+
 
 with open("rap.txt") as f:
     text = f.read()
@@ -47,12 +50,20 @@ last_word1 = split_sentence[-1]
 
 inp = last_word1
 
-first = text_model.make_short_sentence(100)
-second = text_model.make_short_sentence(100)
-third = text_model.make_short_sentence(100)
+first = text_model.make_short_sentence(60)
+second = text_model.make_short_sentence(60)
+third = text_model.make_short_sentence(60)
 fourth = text_model.make_short_sentence(100)
 print(sentence)
 
-print(replace_last_word(first, select_rhyme_word(last_word1)))
-print(replace_last_word(second, select_rhyme_word(last_word1)))
-print(replace_last_word(third, select_rhyme_word(last_word1)))
+first_new = replace_last_word(first, select_rhyme_word(last_word1))
+second_new = replace_last_word(second, select_rhyme_word(last_word1))
+third_new = replace_last_word(third, select_rhyme_word(last_word1))
+print(first_new)
+print(second_new)
+print(third_new)
+
+rap = sentence + ", " + first_new + ", " + second_new + ", " + third_new
+
+speak = gTTS(rap,lang='en')
+speak.save("newrap.mp3")
