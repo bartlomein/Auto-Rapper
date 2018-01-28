@@ -37,6 +37,22 @@ def select_rhyme_word(word1):
     return random_word
 
 
+
+def last_line_rhymer(sentence):
+    old_second = sentence
+    split_sentence = sentence.split()
+    last_word1 = split_sentence[-1]
+    last_word1 = last_word1.strip('.')
+    word_that_rhyme = pronouncing.rhymes(last_word1)
+    wordlist = list(word_that_rhyme)
+    if len(wordlist) == 0:
+       new_second = last_line_rhymer(second_line())
+    else:
+        random_word = wordlist[randint(0, len(wordlist) - 1)]
+        old = sentence.rsplit(' ', 1)[0]
+        new = old + " " + random_word
+        return [old_second, new]
+
 #input
 sentence = input("Start me off with a line: ")
 
@@ -58,7 +74,7 @@ def second_line():
 
 
 def third_line():
-    return text_model.make_short_sentence(100)
+    return text_model.make_short_sentence(60)
 
 
 first_generated = first_line()
@@ -73,13 +89,13 @@ third_generated = third_line()
 print(sentence)
 first_line = replace_last_word(first_line(), select_rhyme_word(return_last_word(sentence)))
 print(first_line)
-print(second_generated)
-third_line = replace_last_word(third_line(), select_rhyme_word(return_last_word(second_generated)))
-print(third_line)
+third_line = last_line_rhymer(second_line())
+list = last_line_rhymer(second_generated)
+print(str(list[0]))
+print(str(list[1]))
 
 
+#rap = sentence + ", " + first_line + ", " + second_generated + ", " + third_line
 
-rap = sentence + ", " + first_line + ", " + second_generated + ", " + third_line
-
-speak = gTTS(rap,lang='en')
-speak.save("newrap.mp3")
+#speak = gTTS(rap,lang='en')
+#speak.save("newrap.mp3")
