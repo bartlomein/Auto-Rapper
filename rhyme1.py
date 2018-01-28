@@ -44,26 +44,33 @@ def select_rhyme_word(word1):
 sentence = input("Start me off with a line: ")
 
 
-split_sentence = sentence.split()
-last_word = len(split_sentence[-1])
-last_word1 = split_sentence[-1]
+def return_last_word(input_sentence):
+    split_sentence = input_sentence.split()
+    last_word1 = split_sentence[-1]
+    if last_word1 == ".":
+        return split_sentence[-2]
+    else:
+        return last_word1
 
-inp = last_word1
+inp = return_last_word(sentence)
 
 first = text_model.make_short_sentence(60)
 second = text_model.make_short_sentence(60)
 third = text_model.make_short_sentence(60)
 fourth = text_model.make_short_sentence(100)
+
+#exucution
+
+#find the rhyme word in last
+first_new = replace_last_word(first, select_rhyme_word(return_last_word(sentence)))
+third_new = replace_last_word(third, select_rhyme_word(return_last_word(second)))
 print(sentence)
-
-first_new = replace_last_word(first, select_rhyme_word(last_word1))
-second_new = replace_last_word(second, select_rhyme_word(last_word1))
-third_new = replace_last_word(third, select_rhyme_word(last_word1))
 print(first_new)
-print(second_new)
-print(third_new)
+print(second)
+print()
 
-rap = sentence + ", " + first_new + ", " + second_new + ", " + third_new
 
-speak = gTTS(rap,lang='en')
-speak.save("newrap.mp3")
+#rap = sentence + ", " + first_new + ", " + second_new + ", " + third_new
+
+#speak = gTTS(rap,lang='en')
+#speak.save("newrap.mp3")
