@@ -28,6 +28,7 @@ def replace_last_word(sentence, rhyme_word):
 
 #selects the last word in a line
 def select_rhyme_word(word1):
+    word1 = word1.strip('')
     word_that_rhyme = pronouncing.rhymes(word1)
     wordlist = list(word_that_rhyme)
     random_word = wordlist[randint(0, len(wordlist)-1)]
@@ -57,6 +58,9 @@ def last_line_rhymer(sentence):
 
 #input
 
+
+
+
 first_input = input("Start me off with a line: ")
 
 
@@ -78,10 +82,6 @@ else:
 
 
 
-
-
-
-
 def check_for_rhyme_in_first_sentence(sentence):
     with_periods = sentence.strip('.')
     split_sentence = with_periods.split()
@@ -95,15 +95,16 @@ def check_for_rhyme_in_first_sentence(sentence):
         return True
 
 
+
 checker = check_for_rhyme_in_first_sentence(sentence)
 
 def return_last_word(input_sentence):
         split_sentence = input_sentence.split()
         last_word1 = split_sentence[-1]
         last_word1 = last_word1.strip('.')
+
         return last_word1
 
-inp = return_last_word(sentence)
 
 def first_line():
     return text_model.make_short_sentence(60)
@@ -140,16 +141,29 @@ aftercheck = second_final_line(checker)
 
 #MAIN FUNCTION
 list = last_line_rhymer(second_line())
-final3 = str(list[0]).strip('.')
-final4 = str(list[1]).strip('.')
+
+
+final3 = str(list[0])
+final4 = str(list[1])
+
+if "." in final3:
+    final3 = final3.strip(".")
+
+if "." in final4:
+    final4 = final4.strip(".")
+
+
 
 def main_function1(check, sentence1):
 
     if check == True:
-        print(sentence)
-        print(aftercheck)
-        print(final3)
-        print(final4)
+        if aftercheck:
+            print(sentence)
+            print(aftercheck)
+            print(final3)
+            print(final4)
+        else:
+            print("empty string")
 
     else:
         print("I don't have any rhymes for the last word in that sentence, try again with another word")
