@@ -59,13 +59,29 @@ def last_line_rhymer(sentence):
 
 
 #input
-sentence = input("Start me off with a line: ")
+
+def input_function():
+    newimp = input("Start me off with a line: ")
+    if len(newimp) == 0:
+        return "Can't be blank!"
+    else:
+        return newimp
+
+
+
+sentence = input_function()
+
+
+
+
+
+
 
 def check_for_rhyme_in_first_sentence(sentence):
     with_periods = sentence.strip('.')
     split_sentence = with_periods.split()
     last_word1 = split_sentence[-1]
-    last_word1 = last_word1.strip('.')
+
     word_that_rhyme = pronouncing.rhymes(last_word1)
     wordlist = list(word_that_rhyme)
     if len(wordlist) == 0:
@@ -73,6 +89,8 @@ def check_for_rhyme_in_first_sentence(sentence):
     else:
         return True
 
+
+checker = check_for_rhyme_in_first_sentence(sentence)
 
 def return_last_word(input_sentence):
         split_sentence = input_sentence.split()
@@ -93,8 +111,22 @@ def second_line():
 def third_line():
     return text_model.make_short_sentence(60)
 
+
+
+first_generated = first_line()
 second_generated = second_line()
 third_generated = third_line()
+
+def second_final_line(checker):
+    if checker == True:
+        return replace_last_word(first_generated, select_rhyme_word(return_last_word(sentence)))
+    else:
+        return False
+
+
+aftercheck = second_final_line(checker)
+
+
 
 
 #exucution
@@ -102,24 +134,27 @@ third_generated = third_line()
 #find the rhyme word in last
 
 #MAIN FUNCTION
+list = last_line_rhymer(second_line())
+final3 = str(list[0]).strip('.')
+final4 = str(list[1]).strip('.')
 
-def main_function1(sentence):
-    first_generated = text_model.make_short_sentence(60)
-    if check_for_rhyme_in_first_sentence(sentence) == True:
+def main_function1(check, sentence1):
+
+    if check == True:
         print(sentence)
-        first_line = replace_last_word(first_generated, select_rhyme_word(return_last_word(sentence)))
-        print(first_line)
-        third_line = last_line_rhymer(second_line())
-        list = last_line_rhymer(second_line())
-        print(str(list[0]).strip('.'))
-        print(str(list[1]).strip('.'))
+        print(aftercheck)
+        print(final3)
+        print(final4)
+
     else:
         print("I don't have any rhymes for the last word in that sentence, try again with another word")
 
 
 
 
-main_function1(sentence)
+main_function1(checker, aftercheck)
+
+
 
 #rap = sentence + ", " + first_line + ", " + second_generated + ", " + third_line
 
