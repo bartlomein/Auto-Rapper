@@ -40,18 +40,20 @@ def select_rhyme_word(word1):
 
 def last_line_rhymer(sentence):
     old_second = sentence
-    split_sentence = sentence.split()
+    with_periods = sentence.strip('.')
+    split_sentence = with_periods.split()
     last_word1 = split_sentence[-1]
     last_word1 = last_word1.strip('.')
     word_that_rhyme = pronouncing.rhymes(last_word1)
     wordlist = list(word_that_rhyme)
-    if len(wordlist) == 0:
-       new_second = last_line_rhymer(second_line())
-    else:
+    if len(wordlist) > 0:
         random_word = wordlist[randint(0, len(wordlist) - 1)]
-        old = sentence.rsplit(' ', 1)[0]
+        try_again = text_model.make_short_sentence(60)
+        old = try_again.rsplit(' ', 1)[0]
         new = old + " " + random_word
-        return [old_second, new]
+        return [sentence, new]
+    else:
+        last_line_rhymer(text_model.make_short_sentence(60))
 
 #input
 sentence = input("Start me off with a line: ")
@@ -90,9 +92,9 @@ print(sentence)
 first_line = replace_last_word(first_line(), select_rhyme_word(return_last_word(sentence)))
 print(first_line)
 third_line = last_line_rhymer(second_line())
-list = last_line_rhymer(second_generated)
-print(str(list[0]))
-print(str(list[1]))
+list = last_line_rhymer(second_line())
+print(str(list[0]).strip('.'))
+print(str(list[1]).strip('.'))
 
 
 #rap = sentence + ", " + first_line + ", " + second_generated + ", " + third_line
