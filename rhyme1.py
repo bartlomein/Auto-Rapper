@@ -55,8 +55,23 @@ def last_line_rhymer(sentence):
     else:
         last_line_rhymer(text_model.make_short_sentence(60))
 
+
+
+
 #input
 sentence = input("Start me off with a line: ")
+
+def check_for_rhyme_in_first_sentence(sentence):
+    with_periods = sentence.strip('.')
+    split_sentence = with_periods.split()
+    last_word1 = split_sentence[-1]
+    last_word1 = last_word1.strip('.')
+    word_that_rhyme = pronouncing.rhymes(last_word1)
+    wordlist = list(word_that_rhyme)
+    if len(wordlist) == 0:
+        return False
+    else:
+        return True
 
 
 def return_last_word(input_sentence):
@@ -78,8 +93,6 @@ def second_line():
 def third_line():
     return text_model.make_short_sentence(60)
 
-
-first_generated = first_line()
 second_generated = second_line()
 third_generated = third_line()
 
@@ -88,14 +101,25 @@ third_generated = third_line()
 
 #find the rhyme word in last
 
-print(sentence)
-first_line = replace_last_word(first_line(), select_rhyme_word(return_last_word(sentence)))
-print(first_line)
-third_line = last_line_rhymer(second_line())
-list = last_line_rhymer(second_line())
-print(str(list[0]).strip('.'))
-print(str(list[1]).strip('.'))
+#MAIN FUNCTION
 
+def main_function1(sentence):
+    first_generated = text_model.make_short_sentence(60)
+    if check_for_rhyme_in_first_sentence(sentence) == True:
+        print(sentence)
+        first_line = replace_last_word(first_generated, select_rhyme_word(return_last_word(sentence)))
+        print(first_line)
+        third_line = last_line_rhymer(second_line())
+        list = last_line_rhymer(second_line())
+        print(str(list[0]).strip('.'))
+        print(str(list[1]).strip('.'))
+    else:
+        print("I don't have any rhymes for the last word in that sentence, try again with another word")
+
+
+
+
+main_function1(sentence)
 
 #rap = sentence + ", " + first_line + ", " + second_generated + ", " + third_line
 
