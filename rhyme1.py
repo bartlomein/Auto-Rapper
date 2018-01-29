@@ -18,9 +18,6 @@ def generate_model(cfdist, word, num=15):
         print(word, end=' ')
         word = cfdist[word].max()
 
-# dont got rhymes yo
-def no_rhymes():
-    print("Sorry, last word has no rhymes in my dictionary")
 
 #replaces the last word in a line
 
@@ -60,16 +57,24 @@ def last_line_rhymer(sentence):
 
 #input
 
-def input_function():
-    newimp = input("Start me off with a line: ")
-    if len(newimp) == 0:
-        return "Can't be blank!"
+first_input = input("Start me off with a line: ")
+
+
+#check if input is whitespace
+def input_function_whitespace(input):
+
+    if input.isspace():
+        return False
     else:
-        return newimp
+        return True
 
 
+checkforspace = input_function_whitespace(first_input)
 
-sentence = input_function()
+if checkforspace:
+    sentence = first_input
+else:
+    print("noooo")
 
 
 
