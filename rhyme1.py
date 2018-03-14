@@ -2,6 +2,7 @@ import pyphen
 from random import randint
 import markovify
 import pronouncing
+import sys
 from gtts import gTTS
 
 
@@ -44,14 +45,15 @@ def last_line_rhymer(sentence):
     last_word1 = last_word1.strip('.')
     word_that_rhyme = pronouncing.rhymes(last_word1)
     wordlist = list(word_that_rhyme)
-    if len(wordlist) > 0:
+    if len(wordlist) == 0:
+        print("recursion")
+        last_line_rhymer(text_model.make_short_sentence(60))
+    else:
         random_word = wordlist[randint(0, len(wordlist) - 1)]
         try_again = text_model.make_short_sentence(60)
         old = try_again.rsplit(' ', 1)[0]
         new = old + " " + random_word
         return [sentence, new]
-    else:
-        last_line_rhymer(text_model.make_short_sentence(60))
 
 
 
@@ -59,9 +61,11 @@ def last_line_rhymer(sentence):
 #input
 
 
+test_input = input("Start me off with a line: ")
+if test_input == None:
+    print("epty")
+else: first_input = test_input
 
-
-first_input = input("Start me off with a line: ")
 
 
 #check if input is whitespace
@@ -77,16 +81,18 @@ checkforspace = input_function_whitespace(first_input)
 
 if checkforspace:
     sentence = first_input
-else:
-    print("noooo")
+
 
 
 
 def check_for_rhyme_in_first_sentence(sentence):
     with_periods = sentence.strip('.')
     split_sentence = with_periods.split()
-    last_word1 = split_sentence[-1]
-
+    try:
+     last_word1 = split_sentence[-1]
+    except IndexError:
+        print("empry string")
+        sys.exit(1)
     word_that_rhyme = pronouncing.rhymes(last_word1)
     wordlist = list(word_that_rhyme)
     if len(wordlist) == 0:
@@ -95,8 +101,11 @@ def check_for_rhyme_in_first_sentence(sentence):
         return True
 
 
-
-checker = check_for_rhyme_in_first_sentence(sentence)
+try:
+    checker = check_for_rhyme_in_first_sentence(sentence)
+except NameError:
+    print("Empty String Again!")
+    sys.exit(1)
 
 def return_last_word(input_sentence):
         split_sentence = input_sentence.split()
@@ -134,7 +143,6 @@ aftercheck = second_final_line(checker)
 
 
 
-
 #exucution
 
 #find the rhyme word in last
@@ -142,9 +150,17 @@ aftercheck = second_final_line(checker)
 #MAIN FUNCTION
 list = last_line_rhymer(second_line())
 
+try:
+    final3 = str(list[0])
+except TypeError:
+    print("Something went wrong, please try again")
+    sys.exit(1)
+try:
+    final4 = str(list[1])
+except TypeError:
+    print("Something went wrong, please try again")
+    sys.exit(1)
 
-final3 = str(list[0])
-final4 = str(list[1])
 
 if "." in final3:
     final3 = final3.strip(".")
@@ -175,7 +191,3 @@ main_function1(checker, aftercheck)
 
 
 
-#rap = sentence + ", " + first_line + ", " + second_generated + ", " + third_line
-
-#speak = gTTS(rap,lang='en')
-#speak.save("newrap.mp3")
